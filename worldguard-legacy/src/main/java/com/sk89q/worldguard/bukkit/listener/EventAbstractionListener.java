@@ -790,13 +790,13 @@ public class EventAbstractionListener extends AbstractListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onInventoryMoveItem(InventoryMoveItemEvent event) {
+        //ignore all the hoppers
+        if (event.getInitiator().getHolder() instanceof Hopper) {
+            return;
+        }
         final InventoryHolder causeHolder = event.getInitiator().getHolder();
         InventoryHolder sourceHolder = event.getSource().getHolder();
         InventoryHolder targetHolder = event.getDestination().getHolder();
-
-        if (causeHolder instanceof Hopper && getPlugin().getGlobalStateManager().get(((Hopper) causeHolder).getWorld()).ignoreHopperMoveEvents) {
-            return;
-        }
 
         Entry entry;
 
